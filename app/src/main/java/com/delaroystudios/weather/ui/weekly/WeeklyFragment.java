@@ -79,7 +79,7 @@ public class WeeklyFragment extends Fragment implements Injectable, WeeklyAdapte
         weeklyViewModel = new ViewModelProvider(this, viewModelFactory).get(ForecastViewModel.class);
         weeklyViewModel.fetchResults(city, numDays).observe(getViewLifecycleOwner(), result -> {
             List<SavedDailyForecast> dailyForecasts = result.data;
-            mcity.setText(city);
+            mcity.setText(Utility.toTitleCase(city));
             if (dailyForecasts != null && dailyForecasts.size() > 0) {
 
                 adapter.setForecasts(dailyForecasts);

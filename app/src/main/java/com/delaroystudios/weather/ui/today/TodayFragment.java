@@ -78,7 +78,7 @@ public class TodayFragment extends Fragment implements Injectable {
         forecastViewModel = new ViewModelProvider(this, viewModelFactory).get(ForecastViewModel.class);
         forecastViewModel.fetchResults(city, numDays).observe(getViewLifecycleOwner(), result -> {
             List<SavedDailyForecast> dailyForecasts = result.data;
-            mcity.setText(city);
+            mcity.setText(Utility.toTitleCase(city));
             if (dailyForecasts != null && dailyForecasts.size() > 0) {
 
                 fetchUvi(dailyForecasts.get(0).getLat(), dailyForecasts.get(0).getLon());
