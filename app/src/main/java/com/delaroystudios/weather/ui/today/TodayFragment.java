@@ -6,28 +6,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import androidx.databinding.DataBindingComponent;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.delaroystudios.weather.R;
-import com.delaroystudios.weather.binding.FragmentDataBindingComponent;
 import com.delaroystudios.weather.di.Injectable;
-import com.delaroystudios.weather.model.Resource;
 import com.delaroystudios.weather.model.SavedDailyForecast;
 import com.delaroystudios.weather.model.UviDb;
-import com.delaroystudios.weather.util.AutoClearedValue;
 import com.delaroystudios.weather.util.SharedPreferences;
 import com.delaroystudios.weather.util.Utility;
 import com.delaroystudios.weather.viewmodel.ForecastViewModel;
 import com.delaroystudios.weather.viewmodel.UviViewModel;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Calendar;
 import java.util.List;
@@ -49,7 +42,6 @@ public class TodayFragment extends Fragment implements Injectable {
     @BindView(R.id.humidity_value) TextView humidity_value;
     @BindView(R.id.wind_value) TextView wind_value;
     @BindView(R.id.uv_value) TextView uv_value;
-
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;

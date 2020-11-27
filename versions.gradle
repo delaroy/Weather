@@ -50,6 +50,12 @@ support.constraint_layout = "androidx.constraintlayout:constraintlayout:$version
 support.vector_drawable = "androidx.vectordrawable:vectordrawable:$versions.vectordrawable"
 deps.support = support
 
+def navigation = [:]
+navigation.fragment = "androidx.navigation:navigation-fragment:$versions.navigation"
+navigation.ui = "androidx.navigation:navigation-ui:$versions.navigation"
+navigation.legacy = "androidx.lifecycle:lifecycle-extensions:$versions.legacyv4"
+deps.navigation = navigation
+
 def room = [:]
 room.runtime = "android.arch.persistence.room:runtime:$versions.room"
 room.compiler = "android.arch.persistence.room:compiler:$versions.room"

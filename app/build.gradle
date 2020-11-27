@@ -2,10 +2,6 @@ buildscript {
     repositories {
         maven { url 'https://maven.fabric.io/public' }
     }
-
-    dependencies {
-        classpath 'io.fabric.tools:gradle:1.+'
-    }
 }
 
 apply plugin: 'com.android.application'
@@ -72,10 +68,9 @@ dependencies {
     annotationProcessor deps.dagger.compiler
     annotationProcessor deps.room.compiler
     annotationProcessor deps.lifecycle.compiler
-    implementation 'androidx.navigation:navigation-fragment:2.3.1'
-    implementation 'androidx.navigation:navigation-ui:2.3.1'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation deps.navigation.fragment
+    implementation deps.navigation.ui
+    implementation deps.navigation.legacy
     // ButterKnife
     implementation 'com.jakewharton:butterknife:10.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
@@ -87,4 +82,5 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 }

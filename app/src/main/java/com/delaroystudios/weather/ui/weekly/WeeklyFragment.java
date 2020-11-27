@@ -60,8 +60,7 @@ public class WeeklyFragment extends Fragment implements Injectable, WeeklyAdapte
         View root = inflater.inflate(R.layout.fragment_weekly, container, false);
         ButterKnife.bind(this, root);
         getActivity().getWindow().setStatusBarColor(ContextCompat.getColor(getContext(),R.color.weekly_background));
-        //getActivity().getActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.weekly_background)));
-        //getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new WeeklyAdapter(getContext(), this);
         recyclerView.setAdapter(adapter);
@@ -99,6 +98,7 @@ public class WeeklyFragment extends Fragment implements Injectable, WeeklyAdapte
                     temp_condition.setText(Utility.formatTemperature(getContext(), dailyForecasts.get(0).getNightTemp()));
                 }
 
+                adapter.removeItem(0);
             }
         });
     }

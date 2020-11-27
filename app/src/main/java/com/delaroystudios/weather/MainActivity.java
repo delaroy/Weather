@@ -55,8 +55,7 @@ public class MainActivity extends AppCompatActivity implements HasSupportFragmen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
@@ -85,10 +84,12 @@ public class MainActivity extends AppCompatActivity implements HasSupportFragmen
                 if (sendIntent.resolveActivity(getPackageManager()) != null) {
                     startActivity(sendIntent);
                 }
-            } else {
+            } else if (destination.getId() == R.id.navigation_weekly){
+
+            } else if (destination.getId() == R.id.navigation_today) {
+
             }
         });
-
     }
 
     @Override
