@@ -90,10 +90,9 @@ public class TodayFragment extends Fragment implements Injectable {
             if (dailyForecasts != null && dailyForecasts.size() > 0) {
 
                 fetchUvi(dailyForecasts.get(0).getLat(), dailyForecasts.get(0).getLon());
-                //need for little delay
-                Toast.makeText(getContext(), dailyForecasts.size() + " " + dailyForecasts.get(0).getHumidity(), Toast.LENGTH_LONG).show();
+
                 weather_resource.setImageResource(Utility.getArtResourceForWeatherCondition(dailyForecasts.get(0).getWeatherid()));
-                condition.setText(dailyForecasts.get(0).getDescription());
+                condition.setText(Utility.toTitleCase(dailyForecasts.get(0).getDescription()));
                 date.setText(String.format("%s, %s", Utility.format(dailyForecasts.get(0).getDate()), Utility.formatDate(dailyForecasts.get(0).getDate())));
                 humidity_value.setText(dailyForecasts.get(0).getHumidity() + "%");
                 wind_value.setText(Utility.getFormattedWind(getContext(), Float.parseFloat(String.valueOf(dailyForecasts.get(0).getWind()))));

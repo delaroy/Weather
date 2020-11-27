@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -15,6 +17,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -22,6 +25,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -54,8 +58,8 @@ public class MainActivity extends AppCompatActivity implements HasSupportFragmen
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
         drawer = findViewById(R.id.drawerLayout);
         NavigationView navigationView = findViewById(R.id.navView);
         navigationView.setNavigationItemSelectedListener(this);
@@ -64,28 +68,25 @@ public class MainActivity extends AppCompatActivity implements HasSupportFragmen
                 R.id.navigation_today, R.id.navigation_weekly, R.id.navigation_share, R.id.settings, R.id.about)
                 .setOpenableLayout(drawer)
                 .build();
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        navView.setOnNavigationItemSelectedListener(item -> {
-            switch (item.getItemId()) {
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+            if(destination.getId() == R.id.navigation_share) {
+                String temp = SharedPreferences.getInstance(this).getTemp();
+                String desc = SharedPreferences.getInstance(this).getDesc();
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "Today's weather is " + desc + " with temperature: " + temp );
+                sendIntent.setType("text/plain");
 
-                case R.id.navigation_share: {
-                    String temp = SharedPreferences.getInstance(this).getTemp();
-                    String desc = SharedPreferences.getInstance(this).getDesc();
-                    Intent sendIntent = new Intent();
-                    sendIntent.setAction(Intent.ACTION_SEND);
-                    sendIntent.putExtra(Intent.EXTRA_TEXT, "Today's weather is " + desc + " with temperature: " + temp );
-                    sendIntent.setType("text/plain");
-
-                    if (sendIntent.resolveActivity(getPackageManager()) != null) {
-                        startActivity(sendIntent);
-                    }
-                    break;
+                if (sendIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(sendIntent);
                 }
+            } else {
             }
-            return true;
         });
 
     }
@@ -108,7 +109,6 @@ public class MainActivity extends AppCompatActivity implements HasSupportFragmen
         switch (item.getItemId()) {
 
             case R.id.settings: {
-                Toast.makeText(this, "click settings", Toast.LENGTH_SHORT).show();
                 navigationController.navigateToSettings();
                 break;
             }
@@ -116,6 +116,27 @@ public class MainActivity extends AppCompatActivity implements HasSupportFragmen
         //close navigation drawer
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.search:
+                // User chose the "Search" item, show the app settings UI...
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 }

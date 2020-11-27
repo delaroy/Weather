@@ -18,14 +18,9 @@
         tools:layout="@layout/fragment_weekly" />
 
     <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.delaroystudios.weather.ui.settings.SettingsFragment"
-        tools:layout="@layout/settings_fragment"
-        android:label="SettingsFragment" >
-        <action
-            android:id="@+id/action_settingsFragment_to_navigation_today"
-            app:destination="@id/navigation_today"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit" />
-    </fragment>
+        android:id="@+id/navigation_share"
+        android:name="com.delaroystudios.weather.ui.today.TodayFragment"
+        android:label=""
+        tools:layout=""/>
+
 </navigation>

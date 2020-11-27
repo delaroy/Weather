@@ -86,7 +86,7 @@ public class WeeklyFragment extends Fragment implements Injectable, WeeklyAdapte
                 adapter.setForecasts(dailyForecasts);
 
                 weather_resource.setImageResource(Utility.getArtResourceForWeatherCondition(dailyForecasts.get(0).getWeatherid()));
-                condition.setText(dailyForecasts.get(0).getDescription());
+                condition.setText(Utility.toTitleCase(dailyForecasts.get(0).getDescription()));
                 date.setText(String.format("%s, %s", Utility.format(dailyForecasts.get(0).getDate()), Utility.formatDate(dailyForecasts.get(0).getDate())));
 
                 if(timeOfDay >= 0 && timeOfDay < 12){
